@@ -61,6 +61,7 @@ namespace GoGreenV3.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.EditProfileSuccess ? "Your profile has been updated."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -379,7 +380,8 @@ namespace GoGreenV3.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            EditProfileSuccess
         }
 
 #endregion
