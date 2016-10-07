@@ -1,18 +1,16 @@
 ﻿@model GoGreenV3.Models.EditProfileViewModel
 
 @{
-    ViewBag.Title = "EditProfile";
+    ViewBag.Title = "Edit Profile";
 }
 
-<h2>EditProfile</h2>
-
+<h2>Edit Profile</h2>
+<hr />
 
 @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    
-    <h4>EditProfileViewModel</h4>
-    <hr />
+
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -40,7 +38,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.CellphoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.CellphoneNumber, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.CellphoneNumber } })
+            @Html.EditorFor(model => model.CellphoneNumber, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.CellphoneNumber, placeholder = "OPTIONAL (E.g. 09253334444)" } })
             @Html.ValidationMessageFor(model => model.CellphoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -48,7 +46,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.TelephoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TelephoneNumber, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.TelephoneNumber } })
+            @Html.EditorFor(model => model.TelephoneNumber, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.TelephoneNumber, placeholder = "OPTIONAL (E.g. 5557777)" } })
             @Html.ValidationMessageFor(model => model.TelephoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -83,10 +81,6 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
