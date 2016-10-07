@@ -204,6 +204,73 @@ namespace GoGreenV3.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Account/EditProfile
+        [AllowAnonymous]
+        public ActionResult EditProfile()
+        {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            var model = new EditProfileViewModel();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+            ViewBag.Email = user.Email;
+            ViewBag.FirstName = user.FirstName;
+            ViewBag.LastName = user.LastName;
+            ViewBag.BirthDate = user.BirthDate.Value.ToString("MM/dd/yyyy");
+            ViewBag.CellphoneNumber = user.CellphoneNumber;
+            ViewBag.TelephoneNumber = user.TelephoneNumber;
+            ViewBag.Type = user.Type;
+            ViewBag.Agency = user.Agency;
+
+            return View(model);
+        }
+
+        //
+        // POST: /Account/EditProfile
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditProfile(EditProfileViewModel model)
+        {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.BirthDate = model.BirthDate;
+                user.CellphoneNumber = model.CellphoneNumber;
+                user.TelephoneNumber = model.TelephoneNumber;
+                user.Type = model.Type;
+                user.Agency = model.Agency;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.ChangePasswordSuccess });
+                }
+
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         private IEnumerable<string> GetAllTypes()
         {
             return new List<string>
