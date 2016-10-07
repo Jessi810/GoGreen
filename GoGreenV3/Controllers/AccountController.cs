@@ -168,7 +168,8 @@ namespace GoGreenV3.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.FirstName + model.LastName + "_" + DateTime.Now.ToString("yyyyMMdd-HHmmss"),
+                    //UserName = model.FirstName + " " + model.LastName + "_" + DateTime.Now.ToString("yyyyMMdd-HHmmss"),
+                    UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -182,6 +183,10 @@ namespace GoGreenV3.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Sets account's role to Default upon registration
+                    var currentUser = UserManager.FindByEmail(user.Email);
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
