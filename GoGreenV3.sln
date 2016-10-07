@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoGreenV3", "GoGreenV3\GoGreenV3.csproj", "{A6B29733-ECF8-4B14-ACBA-C75B0E2205FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoGreenV3.Tests", "GoGreenV3.Tests\GoGreenV3.Tests.csproj", "{76D9035C-3E5D-4F9E-8421-9079E1F6550D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6B29733-ECF8-4B14-ACBA-C75B0E2205FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B29733-ECF8-4B14-ACBA-C75B0E2205FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B29733-ECF8-4B14-ACBA-C75B0E2205FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B29733-ECF8-4B14-ACBA-C75B0E2205FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D9035C-3E5D-4F9E-8421-9079E1F6550D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D9035C-3E5D-4F9E-8421-9079E1F6550D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D9035C-3E5D-4F9E-8421-9079E1F6550D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D9035C-3E5D-4F9E-8421-9079E1F6550D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
