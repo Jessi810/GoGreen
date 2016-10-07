@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GoGreenV3.Models;
+using System.Collections.Generic;
 
 namespace GoGreenV3.Controllers
 {
@@ -139,7 +140,15 @@ namespace GoGreenV3.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            var model = new RegisterViewModel();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            return View(model);
         }
 
         //
@@ -149,9 +158,27 @@ namespace GoGreenV3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.FirstName + model.LastName + "_" + DateTime.Now.ToString("yyyyMMdd-HHmmss"),
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthDate = model.BirthDate,
+                    CellphoneNumber = model.CellphoneNumber,
+                    TelephoneNumber = model.TelephoneNumber,
+                    Type = model.Type,
+                    Agency = model.Agency
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -170,6 +197,42 @@ namespace GoGreenV3.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private IEnumerable<string> GetAllTypes()
+        {
+            return new List<string>
+            {
+                "Hospital",
+                "Police Department",
+                "Fire Department"
+            };
+        }
+
+        private IEnumerable<string> GetAllAgencies()
+        {
+            return new List<string>
+            {
+                "Notre Dame De Chartres Hospital",
+                "Baguio Police Department",
+                "Baguio Fire Department"
+            };
+        }
+
+        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+        {
+            var selectList = new List<SelectListItem>();
+
+            foreach (var element in elements)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element,
+                    Text = element
+                });
+            }
+
+            return selectList;
         }
 
         //

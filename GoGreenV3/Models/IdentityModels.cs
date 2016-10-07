@@ -3,6 +3,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace GoGreenV3.Models
 {
@@ -15,6 +18,24 @@ namespace GoGreenV3.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CellphoneNumber { get; set; }
+        public string TelephoneNumber { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string Type { get; set; }
+        public IEnumerable<SelectListItem> Types { get; set; }
+        public string Agency { get; set; }
+        public IEnumerable<SelectListItem> Agencies { get; set; }
+
+        public string GetFullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
         }
     }
 

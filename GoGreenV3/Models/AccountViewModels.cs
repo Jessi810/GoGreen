@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace GoGreenV3.Models
 {
@@ -77,8 +79,42 @@ namespace GoGreenV3.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,100}$", ErrorMessage = "{0} should only contain letters and hyphen and 2-100 in length")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{2,100}$", ErrorMessage = "{0} should only contain letters and hyphen and 2-100 in length")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [RegularExpression(@"^09[0-9]{9}$", ErrorMessage = "{0} is invalid")]
+        [Display(Name = "Cellphone #")]
+        public string CellphoneNumber { get; set; }
+
+        [RegularExpression(@"^[0-9]{7}$", ErrorMessage = "{0} is invalid.")]
+        [Display(Name = "Telephone #")]
+        public string TelephoneNumber { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Birthdate")]
+        public DateTime? BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Agency Type")]
+        public string Type { get; set; }
+
+        public IEnumerable<SelectListItem> Types { get; set; }
+
+        [Required]
+        [Display(Name = "Agency Name")]
+        public string Agency { get; set; }
+
+        public IEnumerable<SelectListItem> Agencies { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -96,7 +132,7 @@ namespace GoGreenV3.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
