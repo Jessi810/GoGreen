@@ -195,6 +195,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AgencyConnection.mdf" />
+    <Content Include="App_Data\AgencyConnection_log.ldf">
+      <DependentUpon>AgencyConnection.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\aspnet-GoGreenV3-20161007091439.mdf" />
     <Content Include="App_Data\aspnet-GoGreenV3-20161007091439_log.ldf">
       <DependentUpon>aspnet-GoGreenV3-20161007091439.mdf</DependentUpon>
