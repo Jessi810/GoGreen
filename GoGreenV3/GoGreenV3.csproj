@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\AccessDeniedAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -175,6 +176,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610080352033_InitialCreate.cs" />
+    <Compile Include="Migrations\201610080352033_InitialCreate.Designer.cs">
+      <DependentUpon>201610080352033_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610080441451_MarkerModelChanged.cs" />
+    <Compile Include="Migrations\201610080441451_MarkerModelChanged.Designer.cs">
+      <DependentUpon>201610080441451_MarkerModelChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -353,8 +363,16 @@
     <Content Include="Views\Marker\Details.cshtml" />
     <Content Include="Views\Marker\Edit.cshtml" />
     <Content Include="Views\Marker\Index.cshtml" />
+    <Content Include="Views\Account\Denied.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610080352033_InitialCreate.resx">
+      <DependentUpon>201610080352033_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610080441451_MarkerModelChanged.resx">
+      <DependentUpon>201610080441451_MarkerModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

@@ -54,6 +54,14 @@ namespace GoGreenV3.Controllers
         }
 
         //
+        // GET: /Account/Denied
+        [AllowAnonymous]
+        public ActionResult Denied()
+        {
+            return View();
+        }
+
+        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -183,9 +191,14 @@ namespace GoGreenV3.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // Sets account's role to Default upon registration
-                    var currentUser = UserManager.FindByEmail(user.Email);
-                    var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
+                    try
+                    {
+                        // Sets account's role to Default upon registration
+                        var currentUser = UserManager.FindByEmail(user.Email);
+                        var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
+                    }
+                    catch
+                    { }
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
