@@ -29,6 +29,9 @@ namespace GoGreenV3.Models
         public IEnumerable<SelectListItem> Types { get; set; }
         public string Agency { get; set; }
         public IEnumerable<SelectListItem> Agencies { get; set; }
+        public DateTime MemberSince { get; set; }
+        public DateTime LastActive { get; set; }
+        public string AvatarUrl { get; set; }
 
         public string GetFullName
         {

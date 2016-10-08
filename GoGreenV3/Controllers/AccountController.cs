@@ -185,7 +185,10 @@ namespace GoGreenV3.Controllers
                     CellphoneNumber = model.CellphoneNumber,
                     TelephoneNumber = model.TelephoneNumber,
                     Type = model.Type,
-                    Agency = model.Agency
+                    Agency = model.Agency,
+                    MemberSince = DateTime.Now,
+                    LastActive = DateTime.Now,
+                    AvatarUrl = model.AvatarUrl
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
