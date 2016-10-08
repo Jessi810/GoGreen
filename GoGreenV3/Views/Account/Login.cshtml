@@ -4,6 +4,14 @@
     ViewBag.Title = "Log in";
 }
 
+@if (Request.Url.Query.ToLower().Contains("returnurl"))
+{
+    <div id="messageAlert" class="alert alert-info alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>Log in first before you can edit your account</p>
+    </div>
+}
+
 <h2>@ViewBag.Title</h2>
 <hr />
 
@@ -40,10 +48,11 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-default" />
+                        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default" })
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
+                    @Html.ActionLink("No account? Register now!", "Register")
                 </p>
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>

@@ -206,7 +206,6 @@ namespace GoGreenV3.Controllers
 
         //
         // GET: /Account/EditProfile
-        [AllowAnonymous]
         public ActionResult EditProfile()
         {
             var types = GetAllTypes();
@@ -234,7 +233,6 @@ namespace GoGreenV3.Controllers
         //
         // POST: /Account/EditProfile
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditProfile(EditProfileViewModel model)
         {
@@ -261,7 +259,7 @@ namespace GoGreenV3.Controllers
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.ChangePasswordSuccess });
+                    return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.EditProfileSuccess });
                 }
 
                 AddErrors(result);
