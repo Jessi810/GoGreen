@@ -34,3 +34,24 @@ textarea {
 #profileButtons:hover {
     background-color: white;
 }
+
+#profileBody {
+     padding: 0;
+     height: 600px;
+}
+
+#profileBodyHeader {
+    font-size: 40px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 30px;
+    padding: 12px;
+}
+
+#profileSubBody {
+    background-color: rgb(239, 234, 234);
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 30px;
+    padding: 12px;
+}
