@@ -29,10 +29,11 @@ namespace GoGreenV3.Models
         [Display(Name = "Status")]
         public string Status { get; set; }
 
+        [StringLength(maximumLength: 200, ErrorMessage = "Up to {0} characters is only allowed")]
         [Display(Name = "Location")]
         public string Location { get; set; }
 
-        [StringLength(maximumLength: 500, ErrorMessage = "Up to {0} characters only allowed")]
+        [StringLength(maximumLength: 500, ErrorMessage = "Up to {0} characters is only allowed")]
         [Display(Name = "Description")]
         public string Description { get; set; }
 
@@ -47,7 +48,6 @@ namespace GoGreenV3.Models
     {
         public MarkerDbContext() : base ("MarkerConnection")
         {
-
         }
 
         public System.Data.Entity.DbSet<GoGreenV3.Models.MarkerModel> Markers { get; set; }
