@@ -237,7 +237,7 @@ namespace GoGreenV3.Controllers
             ViewBag.Email = user.Email;
             ViewBag.FirstName = user.FirstName;
             ViewBag.LastName = user.LastName;
-            ViewBag.BirthDate = user.BirthDate.Value.ToString("MM/dd/yyyy");
+            ViewBag.BirthDate = user.BirthDate.HasValue ? ViewBag.BirthDate = user.BirthDate.Value.ToString("MM/dd/yyyy") : "";
             ViewBag.CellphoneNumber = user.CellphoneNumber;
             ViewBag.TelephoneNumber = user.TelephoneNumber;
             ViewBag.Type = user.Type;

@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#profileButtons {
+    width: 100%;
+    display: block;
+    padding: 12px 12px;
+    text-decoration: none;
+    border-top: 1px solid;
+}
+
+#profileButtons:hover {
+    background-color: white;
+}
