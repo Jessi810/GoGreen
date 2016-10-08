@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AccessDeniedAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgencyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarkerController.cs" />
@@ -186,6 +187,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Agency.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MarkerModel.cs" />
@@ -196,6 +198,10 @@
     <Content Include="App_Data\aspnet-GoGreenV3-20161007091439.mdf" />
     <Content Include="App_Data\aspnet-GoGreenV3-20161007091439_log.ldf">
       <DependentUpon>aspnet-GoGreenV3-20161007091439.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\MarkerConnection.mdf" />
+    <Content Include="App_Data\MarkerConnection_log.ldf">
+      <DependentUpon>MarkerConnection.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
@@ -365,6 +371,11 @@
     <Content Include="Views\Marker\Index.cshtml" />
     <Content Include="Views\Account\Denied.cshtml" />
     <Content Include="Views\Account\EditAgency.cshtml" />
+    <Content Include="Views\Agency\Create.cshtml" />
+    <Content Include="Views\Agency\Delete.cshtml" />
+    <Content Include="Views\Agency\Details.cshtml" />
+    <Content Include="Views\Agency\Edit.cshtml" />
+    <Content Include="Views\Agency\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
