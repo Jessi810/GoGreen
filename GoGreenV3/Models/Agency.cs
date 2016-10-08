@@ -24,6 +24,15 @@ namespace GoGreenV3.Models
         [Display(Name = "Agency")]
         public string Name { get; set; }
 
+        public IEnumerable<SelectListItem> Hospitals { get; set; }
+
+
+        public IEnumerable<SelectListItem> PoliceDepartments { get; set; }
+
+
+        public IEnumerable<SelectListItem> FireStations { get; set; }
+
+
         [StringLength(250, ErrorMessage = "Up to {0} characters only allowed")]
         public string Address { get; set; }
 

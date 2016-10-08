@@ -4,8 +4,14 @@
     ViewBag.Title = "EditAgency";
 }
 
-<h2>EditAgency</h2>
+<script>
+    window.onload = function () {
+        listAgencies2();
+        document.getElementById("loading").className = "hidden";
+    }
+</script>
 
+<h2>EditAgency</h2>
 
 @using (Html.BeginForm())
 {
@@ -18,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Type, Model.Types, "--- SELECT AGENCY TYPE ---", new { @class = "form-control", ViewBag.Type })
+                @Html.DropDownListFor(m => m.Type, Model.Types, new { @class = "form-control", @Value = ViewBag.Type, onchange = "listAgencies2()" })
                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,8 +32,21 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Agency, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Agency, Model.Agencies, "--- SELECT AGENCY NAME ---", new { @class = "form-control", ViewBag.Agency })
-                @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+                <div id="loading" class="show">
+                    <p>Loading...</p>
+                </div>
+                <div id="hospital" class="hidden">
+                    @Html.DropDownListFor(model => model.Agency, Model.Hospitals, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+                </div>
+                <div id="police" class="hidden">
+                    @Html.DropDownListFor(model => model.Agency, Model.PoliceDepartments, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+                </div>
+                <div id="fire" class="hidden">
+                    @Html.DropDownListFor(model => model.Agency, Model.FireStations, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 

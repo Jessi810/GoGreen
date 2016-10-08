@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using GoGreenV3.Models;
 
 namespace GoGreenV3.Models
 {
@@ -113,6 +114,12 @@ namespace GoGreenV3.Models
         [Required]
         [Display(Name = "Agency Name")]
         public string Agency { get; set; }
+        
+        public IEnumerable<SelectListItem> Hospitals { get; set; }
+
+        public IEnumerable<SelectListItem> PoliceDepartments { get; set; }
+
+        public IEnumerable<SelectListItem> FireStations { get; set; }
 
         public IEnumerable<SelectListItem> Agencies { get; set; }
 
@@ -168,6 +175,9 @@ namespace GoGreenV3.Models
         public string Agency { get; set; }
 
         public IEnumerable<SelectListItem> Agencies { get; set; }
+        public IEnumerable<SelectListItem> Hospitals { get; internal set; }
+        public IEnumerable<SelectListItem> PoliceDepartments { get; internal set; }
+        public IEnumerable<SelectListItem> FireStations { get; internal set; }
     }
 
     public class EditAgencyViewModel
@@ -184,6 +194,9 @@ namespace GoGreenV3.Models
         public string Agency { get; set; }
 
         public IEnumerable<SelectListItem> Agencies { get; set; }
+        public IEnumerable<SelectListItem> Hospitals { get; internal set; }
+        public IEnumerable<SelectListItem> PoliceDepartments { get; internal set; }
+        public IEnumerable<SelectListItem> FireStations { get; internal set; }
     }
 
     public class ResetPasswordViewModel

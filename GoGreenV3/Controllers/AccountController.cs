@@ -16,6 +16,8 @@ namespace GoGreenV3.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private AgencyDbContext db = new AgencyDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -149,12 +151,16 @@ namespace GoGreenV3.Controllers
         public ActionResult Register()
         {
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             var model = new RegisterViewModel();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             return View(model);
         }
@@ -167,10 +173,14 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -225,12 +235,16 @@ namespace GoGreenV3.Controllers
         public ActionResult EditProfile()
         {
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             var model = new EditProfileViewModel();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
 
@@ -253,10 +267,14 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> EditProfile(EditProfileViewModel model)
         {
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -292,12 +310,16 @@ namespace GoGreenV3.Controllers
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
 
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             var model = new EditAgencyViewModel();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             ViewBag.Type = user.Type;
             ViewBag.Agency = user.Agency;
@@ -312,10 +334,14 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> EditAgency(EditAgencyViewModel model)
         {
             var types = GetAllTypes();
-            var agencies = GetAllAgencies();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
 
             model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -343,18 +369,29 @@ namespace GoGreenV3.Controllers
             {
                 "Hospital",
                 "Police Department",
-                "Fire Department"
+                "Fire Station"
             };
         }
 
-        private IEnumerable<string> GetAllAgencies()
+        private IEnumerable<string> GetAllHospitals()
         {
-            return new List<string>
-            {
-                "Notre Dame De Chartres Hospital",
-                "Baguio Police Department",
-                "Baguio Fire Department"
-            };
+            var agencies = from a in db.Agencies where a.Type == "Hospital" select a.Name;
+
+            return agencies;
+        }
+
+        private IEnumerable<string> GetAllPoliceDepartments()
+        {
+            var agencies = from a in db.Agencies where a.Type == "Police Department" select a.Name;
+
+            return agencies;
+        }
+
+        private IEnumerable<string> GetAllFireStations()
+        {
+            var agencies = from a in db.Agencies where a.Type == "Fire Stations" select a.Name;
+
+            return agencies;
         }
 
         private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
@@ -372,6 +409,42 @@ namespace GoGreenV3.Controllers
 
             return selectList;
         }
+
+        //private IEnumerable<string> GetAllTypes()
+        //{
+        //    return new List<string>
+        //    {
+        //        "Hospital",
+        //        "Police Department",
+        //        "Fire Station"
+        //    };
+        //}
+
+        //private IEnumerable<string> GetAllAgencies()
+        //{
+        //    return new List<string>
+        //    {
+        //        "Notre Dame De Chartres Hospital",
+        //        "Baguio Police Department",
+        //        "Baguio Fire Station"
+        //    };
+        //}
+
+        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+        //{
+        //    var selectList = new List<SelectListItem>();
+
+        //    foreach (var element in elements)
+        //    {
+        //        selectList.Add(new SelectListItem
+        //        {
+        //            Value = element,
+        //            Text = element
+        //        });
+        //    }
+
+        //    return selectList;
+        //}
 
         //
         // GET: /Account/ConfirmEmail

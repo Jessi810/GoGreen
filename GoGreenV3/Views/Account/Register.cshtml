@@ -77,16 +77,34 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Type, Model.Types, "--- SELECT AGENCY TYPE ---", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Type, Model.Types, "--- SELECT AGENCY TYPE ---", new { @class = "form-control", onchange = "listAgencies()" })
             @Html.ValidationMessageFor(m => m.Type, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Agency, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @*<div class="col-md-10">
             @Html.DropDownListFor(m => m.Agency, Model.Agencies, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Agency, "", new { @class = "text-danger" })
+        </div>*@
+        <div class="col-md-10">
+            <div id="empty" class="show">
+                @Html.DropDownListFor(model => model.Agency, Model.Hospitals, "--- SELECT AGENCY NAME ---", new { @class = "form-control", disabled = true })
+                @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+            </div>
+            <div id="hospital" class="hidden">
+                @Html.DropDownListFor(model => model.Agency, Model.Hospitals, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+            </div>
+            <div id="police" class="hidden">
+                @Html.DropDownListFor(model => model.Agency, Model.PoliceDepartments, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+            </div>
+            <div id="fire" class="hidden">
+                @Html.DropDownListFor(model => model.Agency, Model.FireStations, "--- SELECT AGENCY NAME ---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Agency, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
 

@@ -38,7 +38,19 @@ namespace GoGreenV3.Controllers
         // GET: Agency/Create
         public ActionResult Create()
         {
-            return View();
+            var types = GetAllTypes();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
+
+            var model = new Agency();
+
+            model.Types = GetSelectListItems(types);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
+
+            return View(model);
         }
 
         // POST: Agency/Create
@@ -46,16 +58,73 @@ namespace GoGreenV3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] Agency agency)
+        public ActionResult Create([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] Agency model)
         {
+            var types = GetAllTypes();
+            var hospitals = GetAllHospitals();
+            var polices = GetAllPoliceDepartments();
+            var fires = GetAllFireStations();
+
+            model.Types = GetSelectListItems(types);
+            model.Hospitals = GetSelectListItems(hospitals);
+            model.PoliceDepartments = GetSelectListItems(polices);
+            model.FireStations = GetSelectListItems(fires);
+
             if (ModelState.IsValid)
             {
-                db.Agencies.Add(agency);
+                db.Agencies.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(agency);
+            return View(model);
+        }
+
+        private IEnumerable<string> GetAllTypes()
+        {
+            return new List<string>
+            {
+                "Hospital",
+                "Police Department",
+                "Fire Station"
+            };
+        }
+
+        private IEnumerable<string> GetAllHospitals()
+        {
+            var agencies = from a in db.Agencies where a.Type == "Hospital" select a.Name;
+
+            return agencies;
+        }
+
+        private IEnumerable<string> GetAllPoliceDepartments()
+        {
+            var agencies = from a in db.Agencies where a.Type == "Police Department" select a.Name;
+
+            return agencies;
+        }
+
+        private IEnumerable<string> GetAllFireStations()
+        {
+            var agencies = from a in db.Agencies where a.Type == "Fire Stations" select a.Name;
+
+            return agencies;
+        }
+
+        private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
+        {
+            var selectList = new List<SelectListItem>();
+
+            foreach (var element in elements)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element,
+                    Text = element
+                });
+            }
+
+            return selectList;
         }
 
         // GET: Agency/Edit/5
