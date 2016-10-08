@@ -364,6 +364,7 @@
     <Content Include="Views\Marker\Edit.cshtml" />
     <Content Include="Views\Marker\Index.cshtml" />
     <Content Include="Views\Account\Denied.cshtml" />
+    <Content Include="Views\Account\EditAgency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

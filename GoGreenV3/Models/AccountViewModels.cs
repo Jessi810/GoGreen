@@ -170,6 +170,22 @@ namespace GoGreenV3.Models
         public IEnumerable<SelectListItem> Agencies { get; set; }
     }
 
+    public class EditAgencyViewModel
+    {
+
+        [Required]
+        [Display(Name = "Agency Type")]
+        public string Type { get; set; }
+
+        public IEnumerable<SelectListItem> Types { get; set; }
+
+        [Required]
+        [Display(Name = "Agency Name")]
+        public string Agency { get; set; }
+
+        public IEnumerable<SelectListItem> Agencies { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]

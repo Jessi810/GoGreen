@@ -285,6 +285,58 @@ namespace GoGreenV3.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Account/EditAgency
+        public ActionResult EditAgency()
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            var model = new EditAgencyViewModel();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            ViewBag.Type = user.Type;
+            ViewBag.Agency = user.Agency;
+
+            return View(model);
+        }
+
+        //
+        // POST: /Account/EditProfile
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditAgency(EditAgencyViewModel model)
+        {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                user.Type = model.Type;
+                user.Agency = model.Agency;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.EditAgencySuccess });
+                }
+
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         private IEnumerable<string> GetAllTypes()
         {
             return new List<string>
