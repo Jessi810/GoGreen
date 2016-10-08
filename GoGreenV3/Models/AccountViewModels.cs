@@ -63,6 +63,8 @@ namespace GoGreenV3.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public DateTime LastActive { get; set; }
     }
 
     public class RegisterViewModel

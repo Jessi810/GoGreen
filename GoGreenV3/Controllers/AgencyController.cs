@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoGreenV3.Models;
+using GoGreenV3.Attributes;
 
 namespace GoGreenV3.Controllers
 {
+    [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
     public class AgencyController : Controller
     {
         private AgencyDbContext db = new AgencyDbContext();

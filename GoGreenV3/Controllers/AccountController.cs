@@ -90,6 +90,9 @@ namespace GoGreenV3.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var currentUser = await UserManager.FindByEmailAsync(model.Email);
+                    currentUser.LastActive = DateTime.Now;
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -289,6 +292,7 @@ namespace GoGreenV3.Controllers
                 user.TelephoneNumber = model.TelephoneNumber;
                 user.Type = model.Type;
                 user.Agency = model.Agency;
+                user.LastActive = DateTime.Now;
 
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
@@ -349,6 +353,7 @@ namespace GoGreenV3.Controllers
 
                 user.Type = model.Type;
                 user.Agency = model.Agency;
+                user.LastActive = DateTime.Now;
 
                 IdentityResult result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
