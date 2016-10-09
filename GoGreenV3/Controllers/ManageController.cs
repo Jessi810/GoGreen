@@ -13,6 +13,8 @@ namespace GoGreenV3.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        AgencyDbContext agencyDb = new AgencyDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -78,6 +80,9 @@ namespace GoGreenV3.Controllers
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             user.LastActive = DateTime.Now;
             IdentityResult result = await UserManager.UpdateAsync(user);
+
+            var agencyAddress = from a in agencyDb.Agencies where a.Name == user.Agency select a.Address;
+            ViewBag.AgencyAddress = agencyAddress.ToString();
 
             return View(model);
         }
@@ -239,7 +244,6 @@ namespace GoGreenV3.Controllers
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                user.LastActive = DateTime.Now;
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

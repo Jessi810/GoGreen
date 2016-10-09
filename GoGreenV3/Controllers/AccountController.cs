@@ -92,6 +92,7 @@ namespace GoGreenV3.Controllers
                 case SignInStatus.Success:
                     var currentUser = await UserManager.FindByEmailAsync(model.Email);
                     currentUser.LastActive = DateTime.Now;
+                    IdentityResult iresult = await UserManager.UpdateAsync(currentUser);
 
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
@@ -668,8 +669,12 @@ namespace GoGreenV3.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public async Task<ActionResult> LogOff()
         {
+            var currentUser = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            currentUser.LastActive = DateTime.Now;
+            IdentityResult iresult = await UserManager.UpdateAsync(currentUser);
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
