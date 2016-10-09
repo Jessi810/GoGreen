@@ -74,6 +74,11 @@ namespace GoGreenV3.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.LastActive = DateTime.Now;
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
             return View(model);
         }
 

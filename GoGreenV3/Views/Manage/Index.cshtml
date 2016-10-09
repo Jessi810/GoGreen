@@ -28,6 +28,11 @@
 
     var totalMinutes = (DateTime.Now - currentUser.LastActive).TotalMinutes;
     var totalMinutesString = totalMinutes.ToString().Substring(0, totalMinutes.ToString().IndexOf('.'));
+    totalMinutesString = totalMinutesString.Insert(totalMinutesString.ToString().Length, " minutes ago");
+    if (totalMinutesString.Equals("0 minutes ago"))
+    {
+        totalMinutesString = "Just now";
+    }
 }
 
 <div class="row">
@@ -38,7 +43,7 @@
             <strong class="text-primary" style="font-size: 20px">@currentUser.GetFullName</strong> <br /><br />
             Member since: @currentUser.MemberSince.ToString("MMMM' 'd', 'yyyy' 'h:mm:ss tt") <br />
             @*Last active: @currentUser.LastActive.ToString("MMMM' 'd', 'yyyy' 'h:mm:ss tt") <br />*@
-            Last active: @totalMinutesString minutes ago
+            Last active: @totalMinutesString
         </div>
 
         <div style="margin: 12px 0;">
