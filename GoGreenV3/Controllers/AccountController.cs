@@ -158,10 +158,12 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             var model = new RegisterViewModel();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -180,8 +182,10 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -242,10 +246,12 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             var model = new EditProfileViewModel();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -274,8 +280,10 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -318,10 +326,12 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             var model = new EditAgencyViewModel();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -342,8 +352,10 @@ namespace GoGreenV3.Controllers
             var hospitals = GetAllHospitals();
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
+            var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
             model.Hospitals = GetSelectListItems(hospitals);
             model.PoliceDepartments = GetSelectListItems(polices);
             model.FireStations = GetSelectListItems(fires);
@@ -386,6 +398,13 @@ namespace GoGreenV3.Controllers
             return agencies;
         }
 
+        private IEnumerable<string> GetAllAgencies()
+        {
+            var agencies = from a in db.Agencies select a.Name;
+
+            return agencies;
+        }
+
         private IEnumerable<string> GetAllPoliceDepartments()
         {
             var agencies = from a in db.Agencies where a.Type == "Police Department" select a.Name;
@@ -395,7 +414,7 @@ namespace GoGreenV3.Controllers
 
         private IEnumerable<string> GetAllFireStations()
         {
-            var agencies = from a in db.Agencies where a.Type == "Fire Stations" select a.Name;
+            var agencies = from a in db.Agencies where a.Type == "Fire Station" select a.Name;
 
             return agencies;
         }

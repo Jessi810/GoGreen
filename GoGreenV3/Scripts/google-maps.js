@@ -19,6 +19,14 @@ function initAutocomplete() {
             return;
         }
 
+        document.getElementById("Type").value = '';
+        document.getElementById("Name").value = '';
+        document.getElementById("Address").value = '';
+        document.getElementById("Contact").value = '';
+        document.getElementById("Latitude").value = '';
+        document.getElementById("Longitude").value = '';
+        document.getElementById("WebsiteUrl").value = '';
+
         if (place.name.toLowerCase().includes('hospital'))
             document.getElementById("Type").value = 'Hospital';
         else if (place.name.toLowerCase().includes('police'))
@@ -28,9 +36,9 @@ function initAutocomplete() {
 
         document.getElementById("Name").value = place.name;
         document.getElementById("Address").value = place.formatted_address;
-        document.getElementById("Contact").value = place.international_phone_number;
+        if (!place.international_phone_number == null) document.getElementById("Contact").value = place.international_phone_number.replace(/ /g, '').replace('+63', '09');
         document.getElementById("Latitude").value = place.geometry.location.lat();
         document.getElementById("Longitude").value = place.geometry.location.lng();
-        document.getElementById("WebsiteUrl").value = place.website;
+        if (!place.website == null || !place.website == '') document.getElementById("WebsiteUrl").value = place.website;
     });
 }

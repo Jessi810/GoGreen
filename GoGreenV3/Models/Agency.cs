@@ -50,7 +50,7 @@ namespace GoGreenV3.Models
         [DataType(DataType.Url)]
         public string WebsiteUrl { get; set; }
 
-        [RegularExpression(pattern: "@^[0-9]", ErrorMessage = "{0} must only be numbers")]
+        [RegularExpression(pattern: "^[0-9]*$", ErrorMessage = "{0} must only be numbers")]
         public string Contact { get; set; }
 
         [EmailAddress]
