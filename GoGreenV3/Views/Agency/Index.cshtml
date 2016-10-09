@@ -20,16 +20,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Latitude)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Longitude)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.WebsiteUrl)
         </th>
         <th>
@@ -37,7 +37,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -59,16 +59,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.Address)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Latitude)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.WebsiteUrl)
         </td>
         <td>
@@ -76,7 +76,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>
+        </td>*@
         <td>
             <a href="@Url.Action("Edit", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-pencil"></span>

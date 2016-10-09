@@ -7,6 +7,7 @@
 <h2>Create</h2>
 
 
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -14,6 +15,14 @@
     <div class="form-horizontal">
         <h4>Agency</h4>
         <hr />
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Search</div>
+            <div class="col-md-10">
+                <input id="pac-input" class="form-control controls" type="text" placeholder="Enter a location">
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -117,3 +126,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="~/Scripts/google-maps.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnRjrz-o64fdMh2-qS6xK1WeKIMwcM76I&libraries=places&callback=initAutocomplete"></script>
