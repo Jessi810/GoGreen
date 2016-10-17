@@ -7,13 +7,13 @@ namespace GoGreenV3.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RegisterViewModelChanged : IMigrationMetadata
+    public sealed partial class AgencyModelUpdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RegisterViewModelChanged));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AgencyModelUpdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610080642367_RegisterViewModelChanged"; }
+            get { return "201610171139223_AgencyModelUpdate"; }
         }
         
         string IMigrationMetadata.Source

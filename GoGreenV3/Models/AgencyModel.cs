@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace GoGreenV3.Models
 {
-    public class Agency
+    public class AgencyModel
     {
         [Key]
         public int Id { get; set; }
@@ -63,6 +63,6 @@ namespace GoGreenV3.Models
         public AgencyDbContext() : base ("AgencyConnection")
         { }
 
-        public System.Data.Entity.DbSet<GoGreenV3.Models.Agency> Agencies { get; set; }
+        public System.Data.Entity.DbSet<GoGreenV3.Models.AgencyModel> Agencies { get; set; }
     }
 }

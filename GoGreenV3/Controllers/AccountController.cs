@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GoGreenV3.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GoGreenV3.Controllers
 {
@@ -82,6 +83,17 @@ namespace GoGreenV3.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            // Require the user to have a confirmed email before they can log on.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    ViewBag.errorMessage = "You must have a confirmed email to log in. Check your email for confirmation link";
+                    return View("Error");
+                }
             }
 
             // This doesn't count login failures towards account lockout
@@ -219,23 +231,32 @@ namespace GoGreenV3.Controllers
                         var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
                     }
                     catch
-                    { }
+                    {
+                        Debug.WriteLine("Error assigning a role");
+                    }
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
 
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.Email = user.Email;
+
+                    return View("VerifyAccount");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult VerifyAccount()
+        {
+            return View();
         }
 
         //
@@ -481,7 +502,16 @@ namespace GoGreenV3.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            if (result.Succeeded)
+            {
+                var currentUser = await UserManager.FindByEmailAsync(userId);
+                var roleresult = UserManager.AddToRole(userId, "Rescuer");
+
+                return View("ConfirmEmail");
+            }
+
+            // Error when this is reached
+            return View("Error");
         }
 
         //

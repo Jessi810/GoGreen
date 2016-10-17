@@ -29,7 +29,7 @@ namespace GoGreenV3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agency agency = db.Agencies.Find(id);
+            AgencyModel agency = db.Agencies.Find(id);
             if (agency == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,7 @@ namespace GoGreenV3.Controllers
             var polices = GetAllPoliceDepartments();
             var fires = GetAllFireStations();
 
-            var model = new Agency();
+            var model = new AgencyModel();
 
             model.Types = GetSelectListItems(types);
             model.Hospitals = GetSelectListItems(hospitals);
@@ -60,7 +60,7 @@ namespace GoGreenV3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] Agency model)
+        public ActionResult Create([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] AgencyModel model)
         {
             var types = GetAllTypes();
             var hospitals = GetAllHospitals();
@@ -136,7 +136,7 @@ namespace GoGreenV3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agency agency = db.Agencies.Find(id);
+            AgencyModel agency = db.Agencies.Find(id);
             if (agency == null)
             {
                 return HttpNotFound();
@@ -149,7 +149,7 @@ namespace GoGreenV3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] Agency agency)
+        public ActionResult Edit([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] AgencyModel agency)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +167,7 @@ namespace GoGreenV3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agency agency = db.Agencies.Find(id);
+            AgencyModel agency = db.Agencies.Find(id);
             if (agency == null)
             {
                 return HttpNotFound();
@@ -180,7 +180,7 @@ namespace GoGreenV3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Agency agency = db.Agencies.Find(id);
+            AgencyModel agency = db.Agencies.Find(id);
             db.Agencies.Remove(agency);
             db.SaveChanges();
             return RedirectToAction("Index");

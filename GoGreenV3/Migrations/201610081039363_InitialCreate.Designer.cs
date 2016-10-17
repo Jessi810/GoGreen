@@ -13,7 +13,7 @@ namespace GoGreenV3.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610070235283_InitialCreate"; }
+            get { return "201610081039363_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
