@@ -37,3 +37,8 @@ var mail = new System.Net.Mail.MailMessage(sentFrom, YOUR_EMAIL_HERE); // change
 1. DOWNLOAD https://github.com/Jessi810/GoGreen/archive/master.zip<br />
 2. EXTRACT to previous project location (Copy and Replace)<br />
 3. BUILD<br />
+
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
