@@ -4,7 +4,7 @@ Our project for our Software Engineering class at University of Baguio.
 <br /><br />
 
 <h3>First time use</h3>
-PRESS Control + Shift + B<br /><br />
+BUILD: Press Control + Shift + B<br /><br />
 
 
 
@@ -27,6 +27,13 @@ PRESS Control + Shift + B<br /><br />
 <strong>To test email confirmation:</strong><br />
 1. CHANGE the following code in 'App_Start > IdentityConfig.cs' line 77<br />
 var mail = new System.Net.Mail.MailMessage(sentFrom, "jessisibayan@gmail.com"); to<br />
-var mail = new System.Net.Mail.MailMessage(sentFrom, YOUR_EMAIL_HERE); // change YOUR_EMAIL_HERE to your own email (Gmail only)<br />
-2. PRESS Control + Shift + B<br />
-3. REGISTER
+var mail = new System.Net.Mail.MailMessage(sentFrom, YOUR_EMAIL_HERE); // change YOUR_EMAIL_HERE to your own email (Gmail only, enclose your email in double quotation marks. E.g. <strong>"example@gmail.com"</strong>)<br />
+2. BUILD<br />
+3. REGISTER<br /><br />
+
+
+
+<strong>To update project:</strong><br />
+1. DOWNLOAD https://github.com/Jessi810/GoGreen/archive/master.zip<br />
+2. EXTRACT to previous project location (Copy and Replace)<br />
+3. BUILD<br />
