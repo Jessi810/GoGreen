@@ -73,6 +73,11 @@ namespace GoGreenV3.Controllers
             return View();
         }
 
+        public ActionResult ErrorEmailNotConfirm()
+        {
+            return View();
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -92,7 +97,7 @@ namespace GoGreenV3.Controllers
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
                     ViewBag.errorMessage = "You must have a confirmed email to log in. Check your email for confirmation link";
-                    return View("Error");
+                    return View("ErrorEmailNotConfirm");
                 }
             }
 
@@ -181,6 +186,37 @@ namespace GoGreenV3.Controllers
             model.FireStations = GetSelectListItems(fires);
 
             return View(model);
+        }
+
+        public ActionResult ResendConfirmationEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResendConfirmationEmail(ResendConfirmationEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ViewBag.errorMessage = "Email not found. Check again your email if it is correct or register now " + Url.Action("Register", "Account");
+                    return View("Error");
+                }
+                
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
+
+                ViewBag.Email = model.Email;
+
+                return View("VerifyAccount");
+            }
+
+            return View("Error");
         }
 
         //
@@ -504,8 +540,8 @@ namespace GoGreenV3.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
             {
-                var currentUser = await UserManager.FindByEmailAsync(userId);
-                var roleresult = UserManager.AddToRole(userId, "Rescuer");
+                var currentUser = await UserManager.FindByIdAsync(userId);
+                var roleresult = await UserManager.AddToRoleAsync(userId, "Rescuer");
 
                 return View("ConfirmEmail");
             }

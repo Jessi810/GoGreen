@@ -13,6 +13,13 @@ namespace GoGreenV3.Models
         public string Email { get; set; }
     }
 
+    public class ResendConfirmationEmailViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
