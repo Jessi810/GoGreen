@@ -6,6 +6,7 @@ namespace GoGreenV3.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GoGreenV3.Models.ApplicationDbContext>
     {
@@ -16,32 +17,73 @@ namespace GoGreenV3.Migrations
 
         protected override void Seed(GoGreenV3.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+                manager.Create(role);
+            }
 
-            var passwordHash = new PasswordHasher();
-            string password = passwordHash.HashPassword("Admin-0");
-            context.Users.AddOrUpdate(u => u.UserName,
-                new ApplicationUser
+            if (!context.Roles.Any(r => r.Name == "TLManager"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "TLManager" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "AManager"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "AManager" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Rescuer"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Rescuer" };
+
+                manager.Create(role);
+            }
+
+            // Creates a default admin
+            if (!(context.Users.Any(u => u.UserName == "admin@gogreen.com")))
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var defaultAdmin = new ApplicationUser
                 {
                     UserName = "admin@gogreen.com",
                     Email = "admin@gogreen.com",
-                    PasswordHash = password,
                     FirstName = "Default",
                     LastName = "Admin",
+                    CellphoneNumber = null,
+                    TelephoneNumber = null,
+                    BirthDate = null,
+                    Type = null,
+                    Agency = null,
+                    MemberSince = DateTime.Now,
+                    LastActive = DateTime.Now,
+                    AvatarUrl = null,
                     EmailConfirmed = true,
-                    MemberSince = DateTime.Now
-                });
+                    SecurityStamp = null,
+                    PhoneNumber = null,
+                    PhoneNumberConfirmed = false,
+                    LockoutEndDateUtc = null,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0
+                };
+                userManager.Create(defaultAdmin, "Admin-0");
+                userManager.AddToRole(defaultAdmin.Id, "Admin");
+            }
         }
     }
 }
