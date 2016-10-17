@@ -3,7 +3,7 @@ Our project for our Software Engineering class at University of Baguio.
 
 <br /><br />
 
-<h3>First time use</h3><br />
+<h3>First time use</h3>
 PRESS Control + Shift + B<br /><br />
 
 
