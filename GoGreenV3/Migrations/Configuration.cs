@@ -12,7 +12,7 @@ namespace GoGreenV3.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(GoGreenV3.Models.ApplicationDbContext context)
