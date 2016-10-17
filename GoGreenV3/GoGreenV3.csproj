@@ -177,14 +177,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610081039363_InitialCreate.cs" />
-    <Compile Include="Migrations\201610081039363_InitialCreate.Designer.cs">
-      <DependentUpon>201610081039363_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610171139223_AgencyModelUpdate.cs" />
-    <Compile Include="Migrations\201610171139223_AgencyModelUpdate.Designer.cs">
-      <DependentUpon>201610171139223_AgencyModelUpdate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AgencyModel.cs" />
@@ -391,14 +383,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610081039363_InitialCreate.resx">
-      <DependentUpon>201610081039363_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610171139223_AgencyModelUpdate.resx">
-      <DependentUpon>201610171139223_AgencyModelUpdate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
