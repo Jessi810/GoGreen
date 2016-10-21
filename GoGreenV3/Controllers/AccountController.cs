@@ -166,26 +166,9 @@ namespace GoGreenV3.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult VerifyAccount()
         {
-            var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
-            var agencies = GetAllAgencies();
-
-            var model = new RegisterViewModel();
-
-            model.Types = GetSelectListItems(types);
-            model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
-
-            return View(model);
+            return View();
         }
 
         public ActionResult ResendConfirmationEmail()
@@ -206,7 +189,7 @@ namespace GoGreenV3.Controllers
                     ViewBag.errorMessage = "Email not found. Check again your email if it is correct or register now " + Url.Action("Register", "Account");
                     return View("Error");
                 }
-                
+
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
@@ -220,6 +203,22 @@ namespace GoGreenV3.Controllers
         }
 
         //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            var model = new RegisterViewModel();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            return View(model);
+        }
+
+        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -227,16 +226,10 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
             var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
             model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -271,8 +264,6 @@ namespace GoGreenV3.Controllers
 
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
@@ -288,28 +279,17 @@ namespace GoGreenV3.Controllers
             return View(model);
         }
 
-        public ActionResult VerifyAccount()
-        {
-            return View();
-        }
-
         //
         // GET: /Account/EditProfile
         public ActionResult EditProfile()
         {
             var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
             var agencies = GetAllAgencies();
 
             var model = new EditProfileViewModel();
 
             model.Types = GetSelectListItems(types);
             model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
 
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
 
@@ -321,6 +301,7 @@ namespace GoGreenV3.Controllers
             ViewBag.TelephoneNumber = user.TelephoneNumber;
             ViewBag.Type = user.Type;
             ViewBag.Agency = user.Agency;
+            ViewBag.AvatarUrl = user.AvatarUrl;
 
             return View(model);
         }
@@ -332,16 +313,10 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> EditProfile(EditProfileViewModel model)
         {
             var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
             var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
             model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -378,18 +353,12 @@ namespace GoGreenV3.Controllers
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
 
             var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
             var agencies = GetAllAgencies();
 
             var model = new EditAgencyViewModel();
 
             model.Types = GetSelectListItems(types);
             model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
 
             ViewBag.Type = user.Type;
             ViewBag.Agency = user.Agency;
@@ -404,16 +373,10 @@ namespace GoGreenV3.Controllers
         public async Task<ActionResult> EditAgency(EditAgencyViewModel model)
         {
             var types = GetAllTypes();
-            var hospitals = GetAllHospitals();
-            var polices = GetAllPoliceDepartments();
-            var fires = GetAllFireStations();
             var agencies = GetAllAgencies();
 
             model.Types = GetSelectListItems(types);
             model.Agencies = GetSelectListItems(agencies);
-            model.Hospitals = GetSelectListItems(hospitals);
-            model.PoliceDepartments = GetSelectListItems(polices);
-            model.FireStations = GetSelectListItems(fires);
 
             if (ModelState.IsValid)
             {
@@ -446,30 +409,9 @@ namespace GoGreenV3.Controllers
             };
         }
 
-        private IEnumerable<string> GetAllHospitals()
-        {
-            var agencies = from a in db.Agencies where a.Type == "Hospital" select a.Name;
-
-            return agencies;
-        }
-
         private IEnumerable<string> GetAllAgencies()
         {
             var agencies = from a in db.Agencies select a.Name;
-
-            return agencies;
-        }
-
-        private IEnumerable<string> GetAllPoliceDepartments()
-        {
-            var agencies = from a in db.Agencies where a.Type == "Police Department" select a.Name;
-
-            return agencies;
-        }
-
-        private IEnumerable<string> GetAllFireStations()
-        {
-            var agencies = from a in db.Agencies where a.Type == "Fire Station" select a.Name;
 
             return agencies;
         }
@@ -489,42 +431,6 @@ namespace GoGreenV3.Controllers
 
             return selectList;
         }
-
-        //private IEnumerable<string> GetAllTypes()
-        //{
-        //    return new List<string>
-        //    {
-        //        "Hospital",
-        //        "Police Department",
-        //        "Fire Station"
-        //    };
-        //}
-
-        //private IEnumerable<string> GetAllAgencies()
-        //{
-        //    return new List<string>
-        //    {
-        //        "Notre Dame De Chartres Hospital",
-        //        "Baguio Police Department",
-        //        "Baguio Fire Station"
-        //    };
-        //}
-
-        //private IEnumerable<SelectListItem> GetSelectListItems(IEnumerable<string> elements)
-        //{
-        //    var selectList = new List<SelectListItem>();
-
-        //    foreach (var element in elements)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = element,
-        //            Text = element
-        //        });
-        //    }
-
-        //    return selectList;
-        //}
 
         //
         // GET: /Account/ConfirmEmail
