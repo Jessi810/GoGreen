@@ -17,9 +17,16 @@ namespace GoGreenV3.Controllers
         private MarkerDbContext db = new MarkerDbContext();
 
         // GET: Marker
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
-            return View(db.Markers.ToList());
+            var list = from m in db.Markers select m;
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                list = list.Where(m => m.Location.Contains(query));
+            }
+
+            return View(list.ToList());
         }
 
         // GET: Marker/Details/5
