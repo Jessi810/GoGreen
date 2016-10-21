@@ -53,6 +53,7 @@ namespace GoGreenV3.Controllers
             ViewBag.Filter = filter;
             ViewBag.SortBy = sortBy;
             ViewBag.SortOrder = sortOrder;
+            ViewBag.NoResult = (list == null ? true : false);
 
             return View(list.ToList());
         }
