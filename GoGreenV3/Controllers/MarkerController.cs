@@ -17,14 +17,42 @@ namespace GoGreenV3.Controllers
         private MarkerDbContext db = new MarkerDbContext();
 
         // GET: Marker
-        public ActionResult Index(string query)
+        public ActionResult Index(string query, string filter, string sortBy, string sortOrder)
         {
             var list = from m in db.Markers select m;
 
             if (!String.IsNullOrEmpty(query))
             {
-                list = list.Where(m => m.Location.Contains(query));
+                switch (filter.ToLower())
+                {
+                    case "type":
+                        list = list.Where(m => m.Type.Contains(query));
+                        break;
+                    case "location":
+                        list = list.Where(m => m.Location.Contains(query));
+                        break;
+                    default:
+                        list = list.Where(m => m.Location.Contains(query) || m.Type.Contains(query));
+                        break;
+                }
             }
+
+            if (!String.IsNullOrEmpty(sortBy) && !String.IsNullOrEmpty(sortOrder))
+            {
+                if (sortOrder.ToLower().Equals("ascending"))
+                {
+                    list = list.OrderBy(m => (sortBy.Contains("type") ? m.Type : m.Location));
+                }
+                else
+                {
+                    list = list.OrderByDescending(m => (sortBy.Contains("type") ? m.Type : m.Location));
+                }
+            }
+
+            ViewBag.Query = query;
+            ViewBag.Filter = filter;
+            ViewBag.SortBy = sortBy;
+            ViewBag.SortOrder = sortOrder;
 
             return View(list.ToList());
         }
