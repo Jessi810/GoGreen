@@ -48,6 +48,7 @@ namespace GoGreenV3.Models
         public string Description { get; set; }
 
         [DataType(DataType.Url)]
+        [Display(Name = "Website")]
         public string WebsiteUrl { get; set; }
 
         [RegularExpression(pattern: "^[0-9]*$", ErrorMessage = "{0} must only be numbers")]

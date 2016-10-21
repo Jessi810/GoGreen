@@ -24,7 +24,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Developer") || User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Rescuer"))
+                    @if (User.IsInRole("Developer") || User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Operator"))
                     {
                         <li>
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Marker <span class="caret"></span></a>
@@ -34,16 +34,21 @@
                             </ul>
                         </li>
                     }
-                    @if (User.IsInRole("Developer") || User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Rescuer"))
-                    {
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agency <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                    
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agency <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @if (User.IsInRole("Developer") || User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Agent"))
+                            {
                                 <li>@Html.ActionLink("Agency List", "Index", "Agency")</li>
                                 <li>@Html.ActionLink("Add Agency", "Create", "Agency")</li>
-                            </ul>
-                        </li>
-                    }
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Agency List", "AgencyList", "Agency")</li>
+                            }
+                        </ul>
+                    </li>
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
                         <ul class="dropdown-menu">

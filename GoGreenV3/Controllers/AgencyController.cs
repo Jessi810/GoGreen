@@ -16,6 +16,13 @@ namespace GoGreenV3.Controllers
     {
         private AgencyDbContext db = new AgencyDbContext();
 
+        [AllowAnonymous]
+        public ActionResult AgencyList()
+        {
+            var list = from a in db.Agencies orderby a.Type select a;
+            return View(list.ToList());
+        }
+
         // GET: Agency
         public ActionResult Index()
         {
