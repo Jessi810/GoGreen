@@ -8,8 +8,8 @@ Press Control + Shift + B<br /><br />
 
 <strong>To test email confirmation:</strong><br />
 1. CHANGE the following code in 'App_Start > IdentityConfig.cs' line 77<br />
-var mail = new System.Net.Mail.MailMessage(sentFrom, "jessisibayan@gmail.com"); to<br />
-var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+var mail = new System.Net.Mail.MailMessage(sentFrom, "jessisibayan@gmail.com");<br />
+var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);<br />
 2. BUILD<br />
 3. REGISTER<br /><br />
 
