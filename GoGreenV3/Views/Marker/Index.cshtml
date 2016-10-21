@@ -23,12 +23,11 @@
                 <input type="submit" class="btn btn-default" value="Search" />
                 <input type="submit" class="btn btn-default" value="Show All" onclick="document.getElementById('Query').value = '';" />
             </p>
-        @*}*@
-        <hr />
-        @*@using (Html.BeginForm("Index", "Marker", FormMethod.Get, new { @class = "form-vertical" }))
-        {*@
+            <hr />
             <strong>Sort by:</strong>
             <p>
+                @Html.RadioButton("SortBy", "Default", true)
+                @Html.Label("Default")
                 @Html.RadioButton("SortBy", "Type", true)
                 @Html.Label("Type")
                 @Html.RadioButton("SortBy", "Location")

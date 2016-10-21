@@ -41,11 +41,33 @@ namespace GoGreenV3.Controllers
             {
                 if (sortOrder.ToLower().Equals("ascending"))
                 {
-                    list = list.OrderBy(m => (sortBy.Contains("type") ? m.Type : m.Location));
+                    switch (sortBy.ToLower())
+                    {
+                        case "type":
+                            list = list.OrderBy(m => m.Type);
+                            break;
+                        case "location":
+                            list = list.OrderBy(m => m.Location);
+                            break;
+                        default:
+                            list = list.OrderBy(m => m.Id);
+                            break;
+                    }
                 }
                 else
                 {
-                    list = list.OrderByDescending(m => (sortBy.Contains("type") ? m.Type : m.Location));
+                    switch (sortBy.ToLower())
+                    {
+                        case "type":
+                            list = list.OrderByDescending(m => m.Type);
+                            break;
+                        case "location":
+                            list = list.OrderByDescending(m => m.Location);
+                            break;
+                        default:
+                            list = list.OrderByDescending(m => m.Id);
+                            break;
+                    }
                 }
             }
 
