@@ -263,8 +263,9 @@ namespace GoGreenV3.Controllers
                     try
                     {
                         // Sets account's role to Default upon registration
-                        var currentUser = UserManager.FindByEmail(user.Email);
-                        var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
+                        //var currentUser = UserManager.FindByEmail(user.Email);
+                        //var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
+                        await UserManager.AddToRoleAsync(user.Email, "Default");
                     }
                     catch
                     {
@@ -576,10 +577,10 @@ namespace GoGreenV3.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

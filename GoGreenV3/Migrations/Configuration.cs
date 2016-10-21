@@ -53,6 +53,15 @@ namespace GoGreenV3.Migrations
                 manager.Create(role);
             }
 
+            if (!context.Roles.Any(r => r.Name == "Default"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Rescuer" };
+
+                manager.Create(role);
+            }
+
             // Creates a default admin
             if (!(context.Users.Any(u => u.UserName == "admin@gogreen.com")))
             {

@@ -20,47 +20,13 @@ namespace GoGreenV3
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            //SmtpClient client = new SmtpClient();
-            //client.Host = "smtp.gmail.com";
-            //client.Port = 587;
-            //client.Credentials = new System.Net.NetworkCredential("gogreen.grp1617@gmail.com", "gogreengrp1617");
-            //client.EnableSsl = true;
-
-            //MailMessage msg = new MailMessage();
-            //msg.Subject = "GoGreen Registration";
-            //msg.Body = "Your confirmation code is: ";
-
-            //string toAddress = "jessisibayan@gmail.com"; // Add Recepient address
-            //msg.To.Add(toAddress);
-
-            //string fromAddress = "\"no reply \" <gogreen.grp1617@gmail.com>";
-            //msg.From = new MailAddress(fromAddress);
-            //msg.IsBodyHtml = true;
-
-            //try
-            //{
-            //    client.Send(msg);
-            //}
-            //catch
-            //{
-            //    throw;
-            //}
-
-            //return Task.FromResult(0);
-            //return client.SendMailAsync("gogreen.grp1617@gmail.com",
-            //                        message.Destination,
-            //                        message.Subject,
-            //                        message.Body);
-
             // Credentials:
             var credentialUserName = "GoGreenETMS@gmail.com";
             var sentFrom = "GoGreenETMS@gmail.com";
             var pwd = "gogreengo";
 
             // Configure the client:
-            System.Net.Mail.SmtpClient client =
-                new System.Net.Mail.SmtpClient("smtp.gmail.com");
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com");
 
             client.Port = 587;
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
