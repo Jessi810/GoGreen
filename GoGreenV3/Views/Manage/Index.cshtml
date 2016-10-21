@@ -37,12 +37,11 @@
 
 <div class="row">
     <div class="col-md-3 img-rounded" style="background-color: rgb(239, 234, 234); padding: 0">
-        <img class="img-thumbnail" src="~/Images/Home/Police.png" style="width: 160px; height: 160px; margin-top: 12px; margin-left: 12px" />
+        <img class="img-thumbnail" src="@currentUser.AvatarUrl" style="width: 160px; height: 160px; margin-top: 12px; margin-left: 12px" />
 
         <div style="margin: 12px;">
             <strong class="text-primary" style="font-size: 20px">@currentUser.GetFullName</strong> <br /><br />
             Member since: @currentUser.MemberSince.ToString("MMMM' 'd', 'yyyy' 'h:mm:ss tt") <br />
-            @*Last active: @currentUser.LastActive.ToString("MMMM' 'd', 'yyyy' 'h:mm:ss tt") <br />*@
             Last active: @totalMinutesString
         </div>
 
@@ -65,6 +64,8 @@
                 <dd>@currentUser.GetFullName</dd>
                 <dt>Email:</dt>
                 <dd>@currentUser.Email</dd>
+                <dt>Birthdate:</dt>
+                <dd>@currentUser.BirthDate</dd>
                 <dt>Cellphone #:</dt>
                 <dd>@currentUser.CellphoneNumber</dd>
                 <dt>Telphone #:</dt>

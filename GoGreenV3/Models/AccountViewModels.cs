@@ -187,6 +187,13 @@ namespace GoGreenV3.Models
         public IEnumerable<SelectListItem> Hospitals { get; internal set; }
         public IEnumerable<SelectListItem> PoliceDepartments { get; internal set; }
         public IEnumerable<SelectListItem> FireStations { get; internal set; }
+
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Last Active")]
+        public DateTime LastActive { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string AvatarUrl { get; set; }
     }
 
     public class EditAgencyViewModel

@@ -242,7 +242,6 @@ namespace GoGreenV3.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    //UserName = model.FirstName + " " + model.LastName + "_" + DateTime.Now.ToString("yyyyMMdd-HHmmss"),
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
@@ -263,8 +262,6 @@ namespace GoGreenV3.Controllers
                     try
                     {
                         // Sets account's role to Default upon registration
-                        //var currentUser = UserManager.FindByEmail(user.Email);
-                        //var roleresult = UserManager.AddToRole(currentUser.Id, "Default");
                         await UserManager.AddToRoleAsync(user.Email, "Default");
                     }
                     catch
