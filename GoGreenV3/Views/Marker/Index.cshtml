@@ -64,7 +64,7 @@
             </tr>
 
             @foreach (var item in Model)
-            {
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Type)
@@ -73,6 +73,8 @@
                         @Html.DisplayFor(modelItem => item.Location)
                     </td>
                     <td class="text-nowrap">
+                        @{ var itemInfo = item.Latitude + "," + item.Longitude + "," + item.Location; }
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#showMarkerOnMap" value="@item.Id" onclick="setMarkerLocation(@item.Id, '@item.Latitude', '@item.Longitude', '@item.Location');">Show on map</button>
                         <a href="@Url.Action("Edit", "Marker", new { id=item.Id })" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </a>
@@ -88,3 +90,24 @@
         </table>
     </div>
 </div>
+
+@* showMarkerOnMap Modal *@
+<div class="modal fade" id="showMarkerOnMap" tabindex="-1" role="dialog" aria-labelledby="showMarkerOnMap">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="showMarkerOnMapHeader">modalHeader</h4>
+            </div>
+            <div class="modal-body">
+                <div id="map" class="map-marker-index"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/gmaps-place-locator.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBnRjrz-o64fdMh2-qS6xK1WeKIMwcM76I&libraries=places&callback=initMapIndexPage" async defer></script>

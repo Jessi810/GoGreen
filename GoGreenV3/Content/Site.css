@@ -61,11 +61,16 @@ textarea {
 }
 
 /* -------------------------------------- */
-/* --------- Marker Create Page --------- */
+/* ------------ Marker Pages ------------ */
 /* -------------------------------------- */
 
 .map-marker-create {
     width: 600px;
+    height: 400px;
+}
+
+.map-marker-index {
+    width: inherit;
     height: 400px;
 }
 
