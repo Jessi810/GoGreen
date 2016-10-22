@@ -11,11 +11,10 @@ function initAutocomplete() {
     autocomplete.setBounds(circle.getBounds());
 
     autocomplete.addListener('place_changed', function () {
-        console.log('place_changed');
         var place = autocomplete.getPlace();
 
         if (!place.geometry) {
-            window.alert("Didn't find what your looking");
+            window.alert("We didn't find what your are looking");
             return;
         }
 

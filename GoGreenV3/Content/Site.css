@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }
 
+/* -------------------------------------- */
+/* ------------ Profile Page ------------ */
+/* -------------------------------------- */
+
 #profileButtons {
     width: 100%;
     display: block;
@@ -57,6 +61,15 @@ textarea {
 }
 
 /* -------------------------------------- */
+/* --------- Marker Create Page --------- */
+/* -------------------------------------- */
+
+.map-marker-create {
+    width: 600px;
+    height: 400px;
+}
+
+/* -------------------------------------- */
 /* --------- Google Maps Styles --------- */
 /* -------------------------------------- */
 
@@ -84,4 +97,8 @@ textarea {
 
 #pac-input:focus {
     border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
 }
