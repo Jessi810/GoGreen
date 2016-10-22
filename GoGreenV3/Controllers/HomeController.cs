@@ -24,5 +24,10 @@ namespace GoGreenV3.Controllers
         {
             return View();
         }
+
+        public ActionResult ToC()
+        {
+            return View();
+        }
     }
 }

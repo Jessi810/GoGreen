@@ -379,6 +379,7 @@
     <Content Include="Views\Account\ResendConfirmationEmail.cshtml" />
     <Content Include="Views\Account\ErrorEmailNotConfirm.cshtml" />
     <Content Include="Views\Agency\AgencyList.cshtml" />
+    <Content Include="Views\Home\ToC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

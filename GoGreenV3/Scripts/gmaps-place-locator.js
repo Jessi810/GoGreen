@@ -68,6 +68,7 @@ function initMapCreatePage() {
 }
 
 function initMapIndexPage() {
+    // This is needed to fix Google Maps not showing on Bootstrap Modal
     $(document).ready(function () {
         $('#showMarkerOnMap').on('shown.bs.modal', function () {
             google.maps.event.trigger(map, "resize");
@@ -85,7 +86,7 @@ function initMapIndexPage() {
 }
 
 function setMarkerLocation(id, lat, lng, location) {
-    console.log("SetMarkerLocation");
+    // Set
     setTimeout(function () {
         marker.setPosition(new google.maps.LatLng(lat, lng));
         map.setZoom(17);
