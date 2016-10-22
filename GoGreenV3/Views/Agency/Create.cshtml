@@ -4,24 +4,20 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>New Agency</h2>
+<hr />
 
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Agency</h4>
-        <hr />
-
-        <div class="form-group">
-            <div class="control-label col-md-2">Search</div>
-            <div class="col-md-10">
-                <input id="pac-input" class="form-control controls" type="text" placeholder="Enter a location">
-            </div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2">Search</label>
+        <div class="col-md-10">
+            <input id="pac-input" class="form-control" style="margin-left: 0;" type="text" placeholder="Search a location">
         </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -101,8 +97,8 @@
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cancelButton">Cancel</button>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 @* CancelButton Modal *@
 <div class="modal fade" id="cancelButton" tabindex="-1" role="dialog" aria-labelledby="cancelLabel">

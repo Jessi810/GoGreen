@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<GoGreenV3.Models.AgencyModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Agency";
 }
 
-<h2>Index</h2>
+<h2>Agencies</h2>
+<h4>Baguio City</h4>
+<hr />
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -43,16 +45,19 @@
         </td>
         <td class="text-nowrap">
             <a href="@Url.Action("Edit", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="glyphicon glyphicon-pencil"></span> Edit
             </a>
             <a href="@Url.Action("Details", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-info-sign"></span>
+                <span class="glyphicon glyphicon-info-sign"></span> Info
             </a>
             <a href="@Url.Action("Delete", "Agency", new { id=item.Id })" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="glyphicon glyphicon-remove"></span> Delete
             </a>
         </td>
     </tr>
 }
 
 </table>
+
+<script src="~/Scripts/gmaps-place-locator.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBnRjrz-o64fdMh2-qS6xK1WeKIMwcM76I&libraries=places&callback=initMapIndexPage" async defer></script>

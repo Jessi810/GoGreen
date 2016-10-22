@@ -15,14 +15,10 @@
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WebsiteUrl)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Contact)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
+        <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -34,13 +30,23 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WebsiteUrl)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Contact)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @if (!String.IsNullOrEmpty(item.Email))
+            {
+                <a href="@item.WebsiteUrl" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-envelope"></span> Send email
+                </a>
+            }
+        </td>
+        <td>
+            @if (!String.IsNullOrEmpty(item.WebsiteUrl))
+            {
+                <a href="@item.WebsiteUrl" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-globe"></span> Visit website
+                </a>
+            }
         </td>
     </tr>
 }
