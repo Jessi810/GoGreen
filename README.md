@@ -9,11 +9,11 @@ Copy the database inside [ProjectFolder]/GoGreenV3<br /><br />
 Press Control + Shift + B<br /><br />
 
 <strong>MarkerApi:</strong><br />
-GET:	  https://localhost:44300/marker/markerapi<br />
-GET:	  https://localhost:44300/marker/markerapi/{id:int}<br />
-PUT:	  https://localhost:44300/marker/markerapi/{id:int}<br />
-POST:	  https://localhost:44300/marker/markerapi<br />
-DELETE:	https://localhost:44300/marker/markerapi/{id:int}<br /><br />
+GET:	  https://localhost:44300/api/markerapi<br />
+GET:	  https://localhost:44300/api/markerapi/{id:int}<br />
+PUT:	  https://localhost:44300/api/markerapi/{id:int}<br />
+POST:	  https://localhost:44300/api/markerapi<br />
+DELETE:	https://localhost:44300/api/markerapi/{id:int}<br /><br />
 
 <strong>AccountApi:</strong><br />
 Working...<br /><br />
