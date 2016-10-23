@@ -17,13 +17,13 @@ namespace GoGreenV3.Controllers
     {
         private MarkerDbContext db = new MarkerDbContext();
 
-        // GET: api/MarkerAPI
+        // GET: MarkerAPI
         public IQueryable<MarkerModel> GetMarkers()
         {
             return db.Markers;
         }
 
-        // GET: api/MarkerAPI/5
+        // GET: MarkerAPI/5
         [ResponseType(typeof(MarkerModel))]
         public async Task<IHttpActionResult> GetMarkerModel(int id)
         {
@@ -36,7 +36,7 @@ namespace GoGreenV3.Controllers
             return Ok(markerModel);
         }
 
-        // PUT: api/MarkerAPI/5
+        // PUT: MarkerAPI/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutMarkerModel(int id, MarkerModel markerModel)
         {
@@ -71,7 +71,7 @@ namespace GoGreenV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/MarkerAPI
+        // POST: MarkerAPI
         [ResponseType(typeof(MarkerModel))]
         public async Task<IHttpActionResult> PostMarkerModel(MarkerModel markerModel)
         {
@@ -86,7 +86,7 @@ namespace GoGreenV3.Controllers
             return CreatedAtRoute("DefaultApi", new { id = markerModel.Id }, markerModel);
         }
 
-        // DELETE: api/MarkerAPI/5
+        // DELETE: MarkerAPI/5
         [ResponseType(typeof(MarkerModel))]
         public async Task<IHttpActionResult> DeleteMarkerModel(int id)
         {
