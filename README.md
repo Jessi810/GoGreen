@@ -1,5 +1,5 @@
 # GoGreen
-Our project for our Software Engineering class at University of Baguio.
+Our project for our Software Engineering class at University of Baguio.<br /><br /><br />
 
 <strong>Database:</strong><br />
 Link <a href="https://drive.google.com/open?id=0B8rI4Zs60vLCQ1dqb1UwNGNPeWc">Google Drive</a><br />
