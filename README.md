@@ -16,7 +16,8 @@ POST:	  https://localhost:44300/api/markerapi<br />
 DELETE:	https://localhost:44300/api/markerapi/{id:int}<br /><br />
 
 <strong>AccountApi:</strong><br />
-Working...<br /><br />
+<strong>Register:</strong><br />
+POST: https://localhost:44300/api/accountapi/register<br /><br />
 
 <strong>To test email confirmation:</strong><br />
 1. CHANGE the following code in 'App_Start > IdentityConfig.cs' line 77<br />
