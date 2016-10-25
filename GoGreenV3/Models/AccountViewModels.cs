@@ -128,11 +128,11 @@ namespace GoGreenV3.Models
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Member Since")]
-        public DateTime MemberSince { get; set; }
+        public DateTime? MemberSince { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Last Active")]
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
 
         [DataType(DataType.ImageUrl)]
         public string AvatarUrl { get; set; }
