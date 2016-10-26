@@ -80,7 +80,7 @@ namespace GoGreenV3.Controllers
                     //var callbackUrl = Url.Link("AccountApi", new { Controller = "Account", Action = "ConfirmEmail" });
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
                     Debug.WriteLine(callbackUrl);
-                    SendEmailViaWebApi(user.Email, "Confirm your account", "Please confirm your account by clicking: ", callbackUrl);
+                    SendEmailViaWebApi(user.Email, "Confirm your Go Green account", "Please confirm your account by clicking: ", callbackUrl);
                     
                     return Ok(user);
                 }
@@ -92,22 +92,18 @@ namespace GoGreenV3.Controllers
 
         private void SendEmailViaWebApi(string emailToAddress, string msgSubject, string msgBody, Uri callbackUrl)
         {
-            string subject = msgSubject;
-            string body = msgBody + "<a href='" + callbackUrl + "' class='btn btn-default'>Confirm Email</a>";
-            string FromMail = "GoGreenETMS@gmail.com";
-            // TODO: Change the email to emailToAddress
-            string emailTo = "jessisibayan@gmail.com";
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress(FromMail, "Go Green");
-            mail.To.Add(emailTo);
-            mail.Subject = subject;
-            mail.Body = body;
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("GoGreenETMS@gmail.com", "gogreengo");
-            SmtpServer.EnableSsl = true;
+            mail.From = new MailAddress("GoGreenETMS@gmail.com", msgSubject);
+            mail.To.Add(emailToAddress);
+            mail.Subject = msgSubject;
+            mail.Body = msgBody + "<a href='" + callbackUrl + "' class='btn btn-default'>Confirm Email</a>";
             mail.IsBodyHtml = true;
-            SmtpServer.Send(mail);
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com");
+            client.Port = 587;
+            client.Credentials = new System.Net.NetworkCredential("GoGreenETMS@gmail.com", "gogreengo");
+            client.EnableSsl = true;
+            client.Send(mail);
         }
 
         [System.Web.Http.AllowAnonymous]
