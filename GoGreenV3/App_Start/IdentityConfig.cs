@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using GoGreenV3.Models;
 using System.Net.Mail;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace GoGreenV3
 {
@@ -20,6 +21,7 @@ namespace GoGreenV3
     {
         public Task SendAsync(IdentityMessage message)
         {
+            Debug.WriteLine("aawhndl;kuajwhbdlaw: 8");
             // Credentials:
             var credentialUserName = "GoGreenETMS@gmail.com";
             var sentFrom = "GoGreenETMS@gmail.com";
