@@ -1,9 +1,11 @@
 # GoGreen
 Our project for our Software Engineering class at University of Baguio.<br /><br /><br />
 
-<strong>Database:</strong><br />
+<strong>Database: (Download this first, once only)</strong><br />
 Link <a href="https://drive.google.com/drive/folders/0B8rI4Zs60vLCdmFjUHNGTXJDLXM?usp=sharing">Google Drive</a><br />
-Copy the database inside [ProjectFolder]/GoGreenV3<br /><br />
+Copy the database inside [ProjectFolder]/GoGreenV3<br />
+<strong>Email:</strong> admin@gogreen.com<br />
+<strong>Password:</strong> Admin-0<br />
 
 <strong>Build:</strong><br />
 Press Control + Shift + B<br /><br />
