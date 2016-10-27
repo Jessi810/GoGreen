@@ -2,7 +2,7 @@
 Our project for our Software Engineering class at University of Baguio.<br /><br /><br />
 
 <strong>Database:</strong><br />
-Link <a href="https://drive.google.com/open?id=0B8rI4Zs60vLCQ1dqb1UwNGNPeWc">Google Drive</a><br />
+Link <a href="https://drive.google.com/drive/folders/0B8rI4Zs60vLCdmFjUHNGTXJDLXM?usp=sharing">Google Drive</a><br />
 Copy the database inside [ProjectFolder]/GoGreenV3<br /><br />
 
 <strong>Build:</strong><br />
@@ -22,7 +22,7 @@ POST: https://localhost:44300/api/accountapi/register<br />
 GET: https://localhost:44300/api/accountapi/confirmemail<br /><br />
 
 <strong>To test email confirmation:</strong><br />
-1. CHANGE the following code in 'App_Start > IdentityConfig.cs' line 77<br />
+1. CHANGE the following code in 'App_Start > IdentityConfig.cs' line 44<br />
 var mail = new System.Net.Mail.MailMessage(sentFrom, "jessisibayan@gmail.com");<br />
 var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);<br />
 2. BUILD<br />
