@@ -11,7 +11,6 @@ using GoGreenV3.Attributes;
 
 namespace GoGreenV3.Controllers
 {
-    [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
     public class AgencyController : Controller
     {
         private AgencyDbContext db = new AgencyDbContext();
@@ -24,12 +23,14 @@ namespace GoGreenV3.Controllers
         }
 
         // GET: Agency
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Index()
         {
             return View(db.Agencies.ToList());
         }
 
         // GET: Agency/Details/5
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,6 +46,7 @@ namespace GoGreenV3.Controllers
         }
 
         // GET: Agency/Create
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Create()
         {
             var types = GetAllTypes();
@@ -67,6 +69,7 @@ namespace GoGreenV3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Create([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] AgencyModel model)
         {
             var types = GetAllTypes();
@@ -156,6 +159,7 @@ namespace GoGreenV3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Edit([Bind(Include = "Id,Type,Name,Address,Latitude,Longitude,Description,WebsiteUrl,Contact,Email")] AgencyModel agency)
         {
             if (ModelState.IsValid)
@@ -168,6 +172,7 @@ namespace GoGreenV3.Controllers
         }
 
         // GET: Agency/Delete/5
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -183,6 +188,7 @@ namespace GoGreenV3.Controllers
         }
 
         // POST: Agency/Delete/5
+        [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
