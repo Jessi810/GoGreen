@@ -42,7 +42,7 @@ namespace GoGreenV3
 
             // Create the message:
             // TODO: change "jessisibayan@gmail.com" to message.Destination in production
-            var mail = new System.Net.Mail.MailMessage(sentFrom, "jessisibayan@gmail.com");
+            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
 
             mail.Subject = message.Subject;
             mail.Body = message.Body;
