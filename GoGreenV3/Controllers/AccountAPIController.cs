@@ -20,13 +20,27 @@ using Microsoft.Owin.Security.DataProtection;
 using System.Web;
 using System.Web.Routing;
 using System.Net.Mail;
+using Microsoft.Owin;
+using Microsoft.Owin.Host.SystemWeb;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Globalization;
 
 namespace GoGreenV3.Controllers
 {
     public class AccountAPIController : ApiController
     {
         public UserManager<ApplicationUser> UserManager { get; private set; }
+        private ApplicationSignInManager SignInManager;
+
         private AgencyDbContext db = new AgencyDbContext();
+
+        public AccountAPIController()
+        {
+        }
 
         [System.Web.Http.Route("api/accountapi/register")]
         [System.Web.Http.HttpPost]
@@ -116,12 +130,11 @@ namespace GoGreenV3.Controllers
                 ModelState.AddModelError("", "User Id and Code are required");
                 return BadRequest(ModelState);
             }
-            Debug.WriteLine(userId);
-            Debug.WriteLine(code);
             var provider = new DpapiDataProtectionProvider("EmailConfirm");
             var context = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
+
             IdentityResult result = await UserManager.ConfirmEmailAsync(userId, code);
 
             if (result.Succeeded)
@@ -136,6 +149,86 @@ namespace GoGreenV3.Controllers
                 ModelState.AddModelError("", "Error on confirming email");
                 return BadRequest(ModelState);
             }
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("api/markerapi/login", Name = "Login")]
+        public async Task<IHttpActionResult> Login(LoginViewModel model)
+        {
+            var provider = new DpapiDataProtectionProvider("LoginAPI");
+            var context = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("LoginAPIs"));
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Require the user to have a confirmed email before they can log on.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    var currentUser = await UserManager.FindByEmailAsync(model.Email);
+                    currentUser.LastActive = DateTime.Now;
+                    IdentityResult iresult = await UserManager.UpdateAsync(currentUser);
+
+                    return Ok(model);
+                case SignInStatus.LockedOut:
+                    return BadRequest();
+                case SignInStatus.RequiresVerification:
+                    return BadRequest();
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return BadRequest(ModelState);
+            }
+        }
+
+        [System.Web.Http.Authorize]
+        [ValidateAntiForgeryToken]
+        [System.Web.Http.HttpPut]
+        [System.Web.Http.Route("api/markerapi/editprofile", Name = "EditProfile")]
+        public async Task<IHttpActionResult> EditProfile(EditProfileViewModel model)
+        {
+            var types = GetAllTypes();
+            var agencies = GetAllAgencies();
+
+            model.Types = GetSelectListItems(types);
+            model.Agencies = GetSelectListItems(agencies);
+
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.BirthDate = model.BirthDate;
+                user.CellphoneNumber = model.CellphoneNumber;
+                user.TelephoneNumber = model.TelephoneNumber;
+                user.Type = model.Type;
+                user.Agency = model.Agency;
+                user.LastActive = DateTime.Now;
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return Ok(model);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return BadRequest(ModelState);
         }
 
         private IEnumerable<string> GetAllTypes()

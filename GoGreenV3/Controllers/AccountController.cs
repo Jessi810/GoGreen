@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using GoGreenV3.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Owin.Host.SystemWeb;
 
 namespace GoGreenV3.Controllers
 {

@@ -140,7 +140,6 @@ namespace GoGreenV3.Models
 
     public class EditProfileViewModel
     {
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
