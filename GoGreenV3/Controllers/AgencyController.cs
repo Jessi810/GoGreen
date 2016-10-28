@@ -16,9 +16,18 @@ namespace GoGreenV3.Controllers
         private AgencyDbContext db = new AgencyDbContext();
 
         [AllowAnonymous]
-        public ActionResult AgencyList()
+        public ActionResult AgencyList(string query)
         {
-            var list = from a in db.Agencies orderby a.Type select a;
+            var list = from a in db.Agencies select a;
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                list = list.Where(a => a.Name.Contains(query) || a.Type.Contains(query));
+                return View(list.ToList());
+            }
+
+            list = from a in db.Agencies orderby a.Type select a;
+
             return View(list.ToList());
         }
 
