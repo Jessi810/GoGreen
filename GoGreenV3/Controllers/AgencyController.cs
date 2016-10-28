@@ -33,9 +33,72 @@ namespace GoGreenV3.Controllers
 
         // GET: Agency
         [AccessDeniedAuthorize(Roles = "Developer, Superuser, Admin, Moderator, Agent")]
-        public ActionResult Index()
+        public ActionResult Index(string query, string filter, string sortBy, string sortOrder)
         {
-            return View(db.Agencies.ToList());
+            var list = from a in db.Agencies select a;
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                list = list.Where(a => a.Name.Contains(query) || a.Type.Contains(query));
+            }
+
+            if (!String.IsNullOrEmpty(filter))
+            {
+                switch (filter)
+                {
+                    case "Hospital":
+                        list = list.Where(a => a.Type == "Hospital");
+                        break;
+                    case "Police Department":
+                        list = list.Where(a => a.Type == "Police Department");
+                        break;
+                    case "Fire Station":
+                        list = list.Where(a => a.Type == "Fire Station");
+                        break;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(sortBy) && !String.IsNullOrEmpty(sortOrder))
+            {
+                if (sortOrder.Equals("Ascending"))
+                {
+                    switch (sortBy)
+                    {
+                        case "Type":
+                            list = list.OrderBy(a => a.Type);
+                            break;
+                        case "Name":
+                            list = list.OrderBy(a => a.Name);
+                            break;
+                        case "Address":
+                            list = list.OrderBy(a => a.Address);
+                            break;
+                        default:
+                            list = list.OrderBy(a => a.Id);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (sortBy)
+                    {
+                        case "Type":
+                            list = list.OrderByDescending(a => a.Type);
+                            break;
+                        case "Name":
+                            list = list.OrderByDescending(a => a.Name);
+                            break;
+                        case "Address":
+                            list = list.OrderByDescending(a => a.Address);
+                            break;
+                        default:
+                            list = list.OrderByDescending(a => a.Id);
+                            break;
+                    }
+                }
+            }
+
+            return View(list.ToList());
         }
 
         // GET: Agency/Details/5

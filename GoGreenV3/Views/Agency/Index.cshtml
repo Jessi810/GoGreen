@@ -11,53 +11,100 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @if (!item.WebsiteUrl.IsEmpty())
-            {
-                <a href="@item.WebsiteUrl">@item.Name</a>
-            }
-            else
-            {
-                @Html.DisplayFor(modelItem => item.Name)
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td class="text-nowrap">
-            <a href="@Url.Action("Edit", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-pencil"></span> Edit
-            </a>
-            <a href="@Url.Action("Details", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-info-sign"></span> Info
-            </a>
-            <a href="@Url.Action("Delete", "Agency", new { id=item.Id })" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-remove"></span> Delete
-            </a>
-        </td>
-    </tr>
-}
+<div class="row">
+    <div class="col-md-3 img-rounded" style="background-color: rgb(239, 234, 234); padding: 12px;">
+        @using (Html.BeginForm("Index", "Agency", FormMethod.Get, new { @class = "form-vertical" }))
+        {
+            @Html.TextBox("Query", null, new { @class = "form-control", placeholder = "Search" })
+            <p>
+                @Html.RadioButton("Filter", "All", true)
+                @Html.Label("All")<br />
+                @Html.RadioButton("Filter", "Hospital")
+                @Html.Label("Hospital Only")<br />
+                @Html.RadioButton("Filter", "Police Department")
+                @Html.Label("Police Department Only")<br />
+                @Html.RadioButton("Filter", "Fire Station")
+                @Html.Label("Fire Station Only")
+            </p>
+            <p>
+                <input type="submit" class="btn btn-default" value="Search" />
+                <input type="submit" class="btn btn-default" value="Show All" onclick="document.getElementById('Query').value = '';" />
+            </p>
+            <hr />
+            <strong>Sort by:</strong>
+            <p>
+                @Html.RadioButton("SortBy", "Default", true)
+                @Html.Label("Default")
+                @Html.RadioButton("SortBy", "Type")
+                @Html.Label("Type")
+                @Html.RadioButton("SortBy", "Name")
+                @Html.Label("Name")
+                @Html.RadioButton("SortBy", "Address")
+                @Html.Label("Address")
+            </p>
+            <strong>Sort order:</strong>
+            <p>
+                @Html.RadioButton("SortOrder", "Ascending", true)
+                @Html.Label("Ascending")
+                @Html.RadioButton("SortOrder", "Descending")
+                @Html.Label("Descending")
+            </p>
+            <p>
+                <input type="submit" class="btn btn-default" value="Sort" />
+            </p>
+        }
+    </div>
 
-</table>
+    <div class="col-md-9">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @if (!item.WebsiteUrl.IsEmpty())
+                        {
+                            <a href="@item.WebsiteUrl">@item.Name</a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Name)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td class="text-nowrap">
+                        <a href="@Url.Action("Edit", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </a>
+                        <a href="@Url.Action("Details", "Agency", new { id=item.Id })" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-info-sign"></span> Info
+                        </a>
+                        <a href="@Url.Action("Delete", "Agency", new { id=item.Id })" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
 <script src="~/Scripts/gmaps-place-locator.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBnRjrz-o64fdMh2-qS6xK1WeKIMwcM76I&libraries=places&callback=initMapIndexPage" async defer></script>
