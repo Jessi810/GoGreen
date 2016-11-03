@@ -22,7 +22,7 @@ namespace GoGreenV3.Migrations
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
                 var role = new IdentityRole { Name = "Admin" };
-
+                
                 manager.Create(role);
             }
 
@@ -57,7 +57,7 @@ namespace GoGreenV3.Migrations
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Rescuer" };
+                var role = new IdentityRole { Name = "Default" };
 
                 manager.Create(role);
             }
